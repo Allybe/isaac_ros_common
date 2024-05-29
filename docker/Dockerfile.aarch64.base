@@ -63,8 +63,8 @@ RUN python3 -m pip install -U \
     wheel
 
 # Install sklearn
-RUN python3 -m pip install -U \
-    scikit-learn
+#RUN python3 -m pip install -U \
+#    scikit-learn
 
 # Install Git-LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
@@ -91,7 +91,19 @@ RUN echo "source /opt/ros/foxy/install/setup.bash" > /opt/ros/foxy/setup.bash
 ENV RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 
 ### -----------------------------
+
 # Setup non-root admin user
-COPY scripts/workspace-entrypoint.sh /home/$USER/workspace-entrypoint.sh
-RUN chmod +x /home/$USER/workspace-entrypoint.sh
+ARG USERNAME=admin
+ARG USER_UID=1002
+ARG USER_GID=1003
+
+# Create the 'admin' user
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && adduser admin video && adduser admin sudo
+
+COPY scripts/workspace-entrypoint.sh /home/$USERNAME/workspace-entrypoint.sh
+RUN chmod +x /home/$USERNAME/workspace-entrypoint.sh
 
