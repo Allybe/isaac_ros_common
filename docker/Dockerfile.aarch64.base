@@ -99,7 +99,7 @@ RUN groupadd --gid 1235 admin \
     && adduser admin video && adduser admin sudo
   
 
-COPY docker/cmake/cmake-3.23.5-linux-aarch64.sh /home/admin/cmake-3.23.5-linux-aarch64.sh
+COPY cmake/cmake-3.23.5-linux-aarch64.sh /home/admin/cmake-3.23.5-linux-aarch64.sh
 COPY scripts/workspace-entrypoint.sh /home/admin/workspace-entrypoint.sh
 RUN chmod +x /home/admin/workspace-entrypoint.sh
 RUN chmod +x /home/admin/cmake-3.23.5-linux-aarch64.sh
