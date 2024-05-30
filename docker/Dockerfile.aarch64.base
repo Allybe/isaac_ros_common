@@ -91,19 +91,18 @@ RUN echo "source /opt/ros/foxy/install/setup.bash" > /opt/ros/foxy/setup.bash
 ENV RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 
 ### -----------------------------
-
-# Setup non-root admin user
-ARG USERNAME=admin
-ARG USER_UID=1002
-ARG USER_GID=1003
-
 # Create the 'admin' user
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME \
+RUN groupadd --gid 1235 admin \
+    && useradd --uid 1234 --gid 1235 -m admin \
+    && echo admin ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/admin \
+    && chmod 0440 /etc/sudoers.d/admin \
     && adduser admin video && adduser admin sudo
+  
 
-COPY scripts/workspace-entrypoint.sh /home/$USERNAME/workspace-entrypoint.sh
-RUN chmod +x /home/$USERNAME/workspace-entrypoint.sh
+COPY docker/cmake/cmake-3.23.5-linux-aarch64.sh /home/admin/cmake-3.23.5-linux-aarch64.sh
+COPY scripts/workspace-entrypoint.sh /home/admin/workspace-entrypoint.sh
+RUN chmod +x /home/admin/workspace-entrypoint.sh
+RUN chmod +x /home/admin/cmake-3.23.5-linux-aarch64.sh
+
+RUN echo "source /home/admin/cmake-3.23.5-linux-aarch64.sh" > /home/admin/cmake-3.23.5-linux-aarch64.sh
 

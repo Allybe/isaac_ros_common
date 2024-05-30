@@ -127,15 +127,15 @@ ENV RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 # Setup non-root admin user
 ARG USERNAME=admin
 ARG USER_UID=1000
-ARG USER_GID=1001
+ARG 1235=1001
 
 # Create the 'admin' user
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME \
+RUN groupadd --gid $1235 admin \
+    && useradd --uid 1234 --gid $1235 -m admin \
+    && echo admin ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/admin \
+    && chmod 0440 /etc/sudoers.d/admin \
     && adduser admin video && adduser admin sudo
 
-COPY scripts/workspace-entrypoint.sh /home/$USERNAME/workspace-entrypoint.sh
-RUN chmod +x /home/$USERNAME/workspace-entrypoint.sh
+COPY scripts/workspace-entrypoint.sh /home/admin/workspace-entrypoint.sh
+RUN chmod +x /home/admin/workspace-entrypoint.sh
 
