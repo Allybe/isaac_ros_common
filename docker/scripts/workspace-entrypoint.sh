@@ -15,4 +15,6 @@ source /opt/ros/foxy/setup.bash
 sudo apt-get update
 rosdep update
 
+python3 -m pip install -U scikit-learn
+
 $@

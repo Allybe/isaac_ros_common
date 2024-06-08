@@ -62,10 +62,6 @@ RUN python3 -m pip install -U \
     Cython \
     wheel
 
-# Install sklearn
-RUN python3 -m pip install -U \
-    scikit-learn
-
 # Install Git-LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
         apt-get update && apt-get install -y \
