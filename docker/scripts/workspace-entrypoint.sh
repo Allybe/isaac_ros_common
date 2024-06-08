@@ -15,8 +15,4 @@ source /opt/ros/foxy/setup.bash
 sudo apt-get update
 rosdep update
 
-echo "source /home/admin/cmake-3.23.5-linux-aarch64.sh" >> ~/.bashrc
-source /home/admin/cmake-3.23.5-linux-aarch64.sh
-
-
 $@
