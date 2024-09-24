@@ -192,7 +192,7 @@ RUN mkdir -p /opt/ros/foxy/src && cd /opt/ros/foxy/src \
     && git clone https://github.com/SteveMacenski/slam_toolbox.git && cd slam_toolbox && git checkout foxy-devel && cd .. \
     && git clone https://github.com/ros-planning/navigation_msgs.git && cd navigation_msgs && git checkout foxy && cd .. \
     #&& git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git && cd gazebo_ros_pkgs && git checkout foxy && cd .. \
-    && git clone https://github.com/ompl/ompl.git && cd ompl && cd .. \
+    && git clone https://github.com/ompl/ompl.git && cd ompl && git checkout 0e485a4 && cd .. \
     && git clone https://github.com/ros/resource_retriever.git && cd resource_retriever && git checkout foxy && cd .. \
     && git clone https://github.com/ros-visualization/interactive_markers.git && cd interactive_markers && git checkout foxy && cd .. \
     && git clone https://github.com/ros-perception/laser_geometry.git && cd laser_geometry && git checkout foxy && cd ..
