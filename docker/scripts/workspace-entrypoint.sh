@@ -12,6 +12,9 @@
 echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
 source /opt/ros/foxy/setup.bash
 
+sudo apt install nvidia-l4t-jetson-multimedia-api
+sudo apt install nvidia-cudnn8
+
 sudo apt-get update
 rosdep update
 
