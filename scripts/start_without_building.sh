@@ -1,3 +1,4 @@
+#!/bin/bash
 ISAAC_ROS_DEV_DIR="$1"
 if [[ -z "$ISAAC_ROS_DEV_DIR" ]]; then
     ISAAC_ROS_DEV_DIR="$HOME/workspaces/isaac_ros-dev"
@@ -36,6 +37,7 @@ DOCKER_ARGS+=("-v /tmp/argus_socket:/tmp/argus_socket")
 DOCKER_ARGS+=("-v /usr/lib/aarch64-linux-gnu/tegra:/usr/lib/aarch64-linux-gnu/tegra")
 DOCKER_ARGS+=("-v /usr/src/jetson_multimedia_api:/usr/src/jetson_multimedia_api")
 DOCKER_ARGS+=("-v /opt/nvidia/nsight-systems-cli:/opt/nvidia/nsight-systems-cli")
+DOCKER_ARGS+=("-v /usr/local/cuda-10.2/targets/aarch64-linux/lib/:/usr/local/cuda-10.2/targets/aarch64-linux/lib/")
 DOCKER_ARGS+=("--pid=host")
 
 print_info "Running $CONTAINER_NAME"
@@ -47,7 +49,7 @@ docker run -it --rm \
     --name "$CONTAINER_NAME" \
     --runtime nvidia \
     --user="admin" \
-    --entrypoint /usr/local/bin/scripts/workspace-entrypoint.sh \   
+    --entrypoint /usr/local/bin/scripts/workspace-entrypoint.sh \
     --workdir /workspaces/isaac_ros-dev \
     $@ \
     $BASE_NAME \
